@@ -1,7 +1,9 @@
 Provides a simple Java API for consuming the SNOMED CT terminology.  You can create a SQLite database from the TRUD CSV files,
 provided by NHS Connecting for Health, available from https://www.uktcregistration.nss.cfh.nhs.uk/ using the loader package
-and then use the db package to access it. Note that the API is a "close to the metal" version - not very object orientated - 
-something quick and dirty.  It does not have any facility for creating pre or post processed queries for instance.
+and then use the db package to access it using the API defined in the root package. 
+
+Note that the API is a "close to the metal" version - not very object orientated - something quick and dirty.  It does not have any 
+facility for creating pre- or post-processed queries for instance.
 
 ## Creating a SQLite database from a TRUD download.
 
@@ -48,9 +50,9 @@ Neither of these options have been implemented for simplicity sake.
  - A report that summarises the contents of the terminology
  - Test coverage for the Sqlite implementation of the API
 
-## Similar projects
+## Related projects
 
- - bioportal provides a very good online web interface that covers many terminologies including snomed ct.
+ - bioportal (http://bioportal.bioontology.org/) provides a very good online web interface that covers many terminologies including snomed ct.
  - Snofyre (http://code.google.com/p/snofyre/) is a project from the NHS that looks a lot more developed than this one.
 
 
