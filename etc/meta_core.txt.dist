@@ -1,0 +1,6 @@
+# Meta file used by org.cossac.snomed.loader.SnomedLoader to load core SNOMED CT data which can be downloaded from:
+# http://www.uktcdownload.nss.cfh.nhs.uk/
+# Note - tab delimited!
+Concept	/home/matt/SnomedCT_INT_20100731/Terminology/Content/sct1_Concepts_Core_INT_20100731.txt	int	int	string	string	string	boolean
+Description	/home/matt/SnomedCT_INT_20100731/Terminology/Content/sct1_Descriptions_en_INT_20100731.txt	long	int	int	string	boolean	int	string
+Relationship	/home/matt/SnomedCT_INT_20100731/Terminology/Content/sct1_Relationships_Core_INT_20100731.txt	long	int	int	int	int	int	int
