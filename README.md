@@ -13,7 +13,7 @@ Set up a copy of the project in your favourite IDE - I use eclipse
  * Run loader.SnomedCoreLoader. This will create you a SQLite database, etc/snomed.sqlite that can back the DB implementation of the API.  
  * Run the ExampleHierarchy test
 
-Tested with 20100731, 20110131 release versions
+Tested with 20100731, 20110131, 20150131 release versions
 
 ## Using the API
 

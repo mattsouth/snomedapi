@@ -85,18 +85,19 @@ public class CSVtoSQLite {
 						try {
 							String[] values = line.trim().split(delimiter);
 							for (int i=0; i<values.length; i++) {
-								switch(table.types[i]) {
-								case BOOLEAN: prep.setBoolean(i+1, values[i].equals("1")); break;
-								case INT: prep.setInt(i+1, new Integer(values[i])); break; 
-								case STRING: prep.setString(i+1, values[i]); break;
-								case LONG: prep.setLong(i+1, new Long(values[i])); break;
-								}
+									switch(table.types[i]) {
+									case BOOLEAN: prep.setBoolean(i+1, values[i].equals("1")); break;
+									case INT: prep.setInt(i+1, new Integer(values[i])); break; 
+									case STRING: prep.setString(i+1, values[i]); break;
+									case LONG: prep.setLong(i+1, new Long(values[i])); break;
+									}
 							}
 							prep.execute();
 							lineno++;
 						} catch (Exception e) {
 							System.err.println("Error occurred on line: " + lineno);
 							e.printStackTrace();
+							System.exit(1);
 						}
 					}
 				}
