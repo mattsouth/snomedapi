@@ -12,15 +12,15 @@ public interface Snomed {
 	
 	// Concepts
 	
-	public abstract Set<Integer> getConceptIds();
+	public abstract Set<Long> getConceptIds();
 	
-	public abstract Concept getConcept(int conceptId);
+	public abstract Concept getConcept(long conceptId);
 	
-	public abstract Set<Integer> getConceptIds(int statusId); // needs getStatusIds?
+	public abstract Set<Long> getConceptIds(int statusId); // needs getStatusIds?
 	
-	public abstract Set<Integer> getConceptIds(String match);
+	public abstract Set<Long> getConceptIds(String match);
 	
-	public abstract Set<Integer> getConceptIds(boolean isPrimitive);
+	public abstract Set<Long> getConceptIds(boolean isPrimitive);
 	
 	// Descriptions
 	
@@ -33,7 +33,7 @@ public interface Snomed {
 	 * @param id 
 	 * @return description from id
 	 */
-	public abstract Description getDescription(Long id);
+	public abstract Description getDescription(long id);
 	
 	/**
 	 * Search for matching description terms
@@ -71,17 +71,17 @@ public interface Snomed {
 	/**
 	 * @return All conceptIds that are relationship typeIds.
 	 */
-	public abstract Set<Integer> getRelationshipTypeIds();
+	public abstract Set<Long> getRelationshipTypeIds();
 
 	/**
 	 * @return All RelationshipIds of a particular type.
 	 */
-	public abstract Set<Long> getRelationshipIds(int typeId);
+	public abstract Set<Long> getRelationshipIds(long typeId);
 
 	/**
 	 * @param conceptID identifies target concept
 	 * @return all Relationships associated with a particular concept.
 	 */
-	public Set<Relationship> getRelationships(int conceptID);
+	public Set<Relationship> getRelationships(long conceptID);
 	
 }

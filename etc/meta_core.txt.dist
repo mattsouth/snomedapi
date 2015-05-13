@@ -3,4 +3,4 @@
 # Note - tab delimited!
 Concept	/data/TRUD/SnomedCT_RF1Release_INT_20150131/Terminology/Content/sct1_Concepts_Core_INT_20150131.txt	long	int	string	string	string	boolean
 Description	/data/TRUD/SnomedCT_RF1Release_INT_20150131/Terminology/Content/sct1_Descriptions_en_INT_20150131.txt	long	int	long	string	boolean	int	string
-Relationship	/data/TRUD/SnomedCT_RF1Release_INT_20150131/Terminology/Content/sct1_Relationships_Core_INT_20150131.txt	long	long	int	long	int	int	int
+Relationship	/data/TRUD/SnomedCT_RF1Release_INT_20150131/Terminology/Content/sct1_Relationships_Core_INT_20150131.txt	long	long	long	long	int	int	int

@@ -24,18 +24,18 @@ import org.cossac.snomed.Relationship;
 public class DBConcept implements Concept {
 	private Connection conn;
 	private Statement stat;
-	private int id;
+	private long id;
 	private int status;
 	private String fullySpecifiedName;
 	private String ctv3Id;
 	private String snomedId;
 	private boolean primitive;
-	private Map<Integer, Set<Relationship>> inwards = new HashMap<Integer, Set<Relationship>>();
-	private Map<Integer, Set<Relationship>> outwards = new HashMap<Integer, Set<Relationship>>();
+	private Map<Long, Set<Relationship>> inwards = new HashMap<Long, Set<Relationship>>();
+	private Map<Long, Set<Relationship>> outwards = new HashMap<Long, Set<Relationship>>();
 
 	private Set<Description> descriptions = null;
 	
-	public DBConcept(int id, Connection conn) throws SQLException {
+	public DBConcept(long id, Connection conn) throws SQLException {
 		super();
 		this.id = id;
 		this.conn = conn;
@@ -59,7 +59,7 @@ public class DBConcept implements Concept {
 	 * @see org.cossac.snomed.Concept#getId()
 	 */
 	@Override
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -133,7 +133,7 @@ public class DBConcept implements Concept {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -152,7 +152,7 @@ public class DBConcept implements Concept {
 	}
 
 	@Override
-	public Set<Integer> getRelationshipTypeIds(Direction direction) {
+	public Set<Long> getRelationshipTypeIds(Direction direction) {
 		if (direction==Direction.INWARDS) {
 			if (inwards==null) {
 				loadAllInwards();
@@ -166,7 +166,7 @@ public class DBConcept implements Concept {
 		}
 	}
 
-	public Set<Relationship> getRelationships(int typeId, Direction direction) {
+	public Set<Relationship> getRelationships(long typeId, Direction direction) {
 		if (direction==Direction.INWARDS) {
 			if (!inwards.containsKey(typeId)) {
 				loadPartialInwards(typeId);
@@ -187,8 +187,8 @@ public class DBConcept implements Concept {
 		inwards = loadAllRelationships("select RELATIONSHIPID from Relationship where CONCEPTID2=" + id);
 	}
 	
-	private Map<Integer, Set<Relationship>> loadAllRelationships(String query) {
-		Map<Integer, Set<Relationship>> map = new HashMap<Integer, Set<Relationship>>();
+	private Map<Long, Set<Relationship>> loadAllRelationships(String query) {
+		Map<Long, Set<Relationship>> map = new HashMap<Long, Set<Relationship>>();
 		ResultSet rs;
 		try {
 			rs = stat.executeQuery(query);
@@ -211,11 +211,11 @@ public class DBConcept implements Concept {
 	}
 
 	
-	private void loadPartialOutwards(int typeId) {
+	private void loadPartialOutwards(long typeId) {
 		outwards.put(typeId, getRelationships("select RELATIONSHIPID from Relationship where CONCEPTID1=" + id + " AND RELATIONSHIPTYPE=" + typeId));
 	}
 	
-	private void loadPartialInwards(int typeId) {
+	private void loadPartialInwards(long typeId) {
 		inwards.put(typeId, getRelationships("select RELATIONSHIPID from Relationship where CONCEPTID2=" + id + " AND RELATIONSHIPTYPE=" + typeId));
 	}
 

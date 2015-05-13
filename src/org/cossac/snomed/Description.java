@@ -51,7 +51,7 @@ but these are marked " Concept non-current" (DescriptionStatus = 8).
 	 * 
 	 * @return
 	 */
-	public abstract int getConceptId();
+	public abstract long getConceptId();
 
 	/**
 	 * The text of a Term used to describe the associated Concept.

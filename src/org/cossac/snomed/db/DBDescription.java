@@ -18,7 +18,7 @@ import org.cossac.snomed.Description;
 public class DBDescription implements Description {
 	private long id;
 	private int status;
-	private int conceptId;
+	private long conceptId;
 	private String term;
 	private boolean initialCapitalStatus;
 	private int type;
@@ -33,10 +33,10 @@ public class DBDescription implements Description {
 	}
 
 	private void loadDescription() throws SQLException {
-		ResultSet rs = stat.executeQuery("select * from Relationship where RELATIONSHIPID=" + this.id);
+		ResultSet rs = stat.executeQuery("select * from Description where DESCRIPTIONID=" + this.id);
 		if (rs.next()) {
 			this.status = rs.getInt(2);
-			this.conceptId = rs.getInt(3);
+			this.conceptId = rs.getLong(3);
 			this.term = rs.getString(4);
 			this.initialCapitalStatus = rs.getBoolean(5);
 			this.type = rs.getInt(6);
@@ -62,7 +62,7 @@ public class DBDescription implements Description {
 	 * @see org.cossac.snomed.Description#getConceptId()
 	 */
 	@Override
-	public int getConceptId() {
+	public long getConceptId() {
 		return conceptId;
 	}
 	/* (non-Javadoc)

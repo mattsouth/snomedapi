@@ -18,9 +18,9 @@ import org.cossac.snomed.Relationship;
 public class DBRelationship implements Relationship {
 	private Statement stat;
 	private long id;
-	private int leftConceptId;
-	private int typeId;
-	private int rightConceptId;
+	private long leftConceptId;
+	private long typeId;
+	private long rightConceptId;
 	private int characteristic; // characteristic type
 	private int refinability;
 	private int group;
@@ -35,9 +35,9 @@ public class DBRelationship implements Relationship {
 	private void loadRelationship() throws SQLException {
 		ResultSet rs = stat.executeQuery("select * from Relationship where RELATIONSHIPID=" + this.id);
 		if (rs.next()) {
-			this.leftConceptId = rs.getInt(2);
-			this.typeId = rs.getInt(3);
-			this.rightConceptId = rs.getInt(4);
+			this.leftConceptId = rs.getLong(2);
+			this.typeId = rs.getLong(3);
+			this.rightConceptId = rs.getLong(4);
 			this.characteristic = rs.getInt(5);
 			this.refinability = rs.getInt(6);
 			this.group = rs.getInt(7);
@@ -57,7 +57,7 @@ public class DBRelationship implements Relationship {
 	 * @see org.cossac.snomed.Relationship#getLeftConceptId()
 	 */
 	@Override
-	public int getSourceConceptId() {
+	public long getSourceConceptId() {
 		return leftConceptId;
 	}
 
@@ -65,7 +65,7 @@ public class DBRelationship implements Relationship {
 	 * @see org.cossac.snomed.Relationship#getTypeId()
 	 */
 	@Override
-	public int getTypeId() {
+	public long getTypeId() {
 		return typeId;
 	}
 
@@ -73,7 +73,7 @@ public class DBRelationship implements Relationship {
 	 * @see org.cossac.snomed.Relationship#getRightConceptId()
 	 */
 	@Override
-	public int getTargetConceptId() {
+	public long getTargetConceptId() {
 		return rightConceptId;
 	}
 
@@ -81,7 +81,7 @@ public class DBRelationship implements Relationship {
 	 * @see org.cossac.snomed.Relationship#getChatacteristic()
 	 */
 	@Override
-	public int getChatacteristic() {
+	public int getCharacteristic() {
 		return characteristic;
 	}
 

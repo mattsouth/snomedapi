@@ -29,13 +29,13 @@ public abstract class DBSnomed implements Snomed {
 		this.stat = conn.createStatement();
 	}
 	
-	private Set<Integer> idsQuery(String query) {
-		Set<Integer> result = new HashSet<Integer>();
+	private Set<Long> idsQuery(String query) {
+		Set<Long> result = new HashSet<Long>();
 		ResultSet rs;
 		try {
 			rs = stat.executeQuery(query);
 			while (rs.next()) {
-				result.add(rs.getInt(1));
+				result.add(rs.getLong(1));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -45,12 +45,12 @@ public abstract class DBSnomed implements Snomed {
 	}
 	
 	@Override
-	public Set<Integer> getConceptIds() {
+	public Set<Long> getConceptIds() {
 		return idsQuery("select CONCEPTID from Concept");
 	}
 
 	@Override
-	public Concept getConcept(int conceptId) {
+	public Concept getConcept(long conceptId) {
 		Concept result=null;
 		try {
 			result = new DBConcept(conceptId, conn);
@@ -61,18 +61,18 @@ public abstract class DBSnomed implements Snomed {
 	}
 
 	@Override
-	public Set<Integer> getConceptIds(int statusId) {
+	public Set<Long> getConceptIds(int statusId) {
 		return idsQuery("select CONCEPTID from Concept where CONCEPTSTATUS=" + statusId);
 	}
 
 	@Override
-	public Set<Integer> getConceptIds(String match) {
+	public Set<Long> getConceptIds(String match) {
 		return idsQuery("select CONCEPTID from Concept where FULLYSPECIFIEDNAME LIKE '%" + match + "%'");
 	}
 
 	@Override
-	public Set<Integer> getConceptIds(boolean isPrimitive) {
-		return idsQuery("select CONCEPTID from Concept where ISPRIMITIVE=" + isPrimitive);
+	public Set<Long> getConceptIds(boolean isPrimitive) {
+		return idsQuery("select CONCEPTID from Concept where ISPRIMITIVE=" + (isPrimitive?1:0));
 	}
 	
 	private Set<Long> longIdsQuery(String query) {
@@ -96,7 +96,7 @@ public abstract class DBSnomed implements Snomed {
 	}
 
 	@Override
-	public Description getDescription(Long id) {
+	public Description getDescription(long id) {
 		Description result = null;
 		try {
 			result = new DBDescription(id, conn);
@@ -140,21 +140,21 @@ public abstract class DBSnomed implements Snomed {
 	}
 	
 	@Override
-	public Set<Integer> getRelationshipTypeIds() {
+	public Set<Long> getRelationshipTypeIds() {
 		return idsQuery("select Concept.CONCEPTID FROM Concept WHERE Concept.CONCEPTID IN (SELECT DISTINCT Relationship.RELATIONSHIPTYPE FROM Relationship)");
 	}
 
 	@Override
-	public Set<Long> getRelationshipIds(int typeId) {
+	public Set<Long> getRelationshipIds(long typeId) {
 		return longIdsQuery("select RELATIONSHIPID from Relationship where RELATIONSHIPTYPE=" + typeId);
 	}
 
 	@Override
-	public Set<Relationship> getRelationships(int conceptID) {
+	public Set<Relationship> getRelationships(long conceptID) {
 		Set<Relationship> result = new HashSet<Relationship>();
 		ResultSet rs;
 		try {
-			rs = stat.executeQuery("select RELATIONSHIPID form Relationship where CONCEPTID1=" + conceptID + " OR CONCEPTID2=" + conceptID);
+			rs = stat.executeQuery("select RELATIONSHIPID from Relationship where CONCEPTID1=" + conceptID + " OR CONCEPTID2=" + conceptID);
 			while (rs.next()) {
 				result.add(new DBRelationship(rs.getLong(1), conn));
 			}

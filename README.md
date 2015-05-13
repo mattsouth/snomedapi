@@ -49,6 +49,7 @@ Neither of these options have been implemented for simplicity sake.
  - An alternative source, e.g. bioportal
  - A report that summarises the contents of the terminology
  - Test coverage for the Sqlite implementation of the API
+ - Enums for Status, Charateristic, Refinability
 
 ## Related projects
 

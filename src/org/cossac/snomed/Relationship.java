@@ -22,21 +22,21 @@ public interface Relationship {
 	 * 
 	 * @return
 	 */
-	public abstract int getSourceConceptId();
+	public abstract long getSourceConceptId();
 
 	/**
 	 * The concept id that types the relationship
 	 * 
 	 * @return
 	 */
-	public abstract int getTypeId();
+	public abstract long getTypeId();
 
 	/**
 	 * target concept id of the relationship.
 	 * 
 	 * @return
 	 */
-	public abstract int getTargetConceptId();
+	public abstract long getTargetConceptId();
 
 	/**
 	 * An indication of whether a Relationship specifies a defining characteristic of the source Concept or 
@@ -49,7 +49,7 @@ public interface Relationship {
 	 * 
 	 * @return
 	 */
-	public abstract int getChatacteristic();
+	public abstract int getCharacteristic();
 
 	/**
 	 * An indication of whether it is possible to refine the target concept when this Relationship is used 

@@ -18,7 +18,7 @@ public interface Concept {
 	 * or nature of the Concept.
 	 * @return
 	 */
-	public abstract int getId();
+	public abstract long getId();
 
 	/**
 	 * This field flags concepts that have been retired so that data encoded with these concepts can be 
@@ -81,9 +81,9 @@ public interface Concept {
 	 * @param direction
 	 * @return
 	 */
-	public abstract Set<Integer> getRelationshipTypeIds(Direction direction);
+	public abstract Set<Long> getRelationshipTypeIds(Direction direction);
 
-	public abstract Set<Relationship> getRelationships(int typeId, Direction direction);
+	public abstract Set<Relationship> getRelationships(long typeId, Direction direction);
 	
 	/**
 	 * A relationship defines a directed edge in a graph of concepts.  When one is filtering the list of relationships 
