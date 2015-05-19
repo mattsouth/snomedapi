@@ -1,5 +1,5 @@
 Provides a simple Java API for consuming the SNOMED CT terminology.  You can create a SQLite database from the TRUD CSV files,
-provided by NHS Connecting for Health, available from https://www.uktcregistration.nss.cfh.nhs.uk/ (RFI release) using the loader package
+provided by NHS Connecting for Health, available from https://www.uktcregistration.nss.cfh.nhs.uk/ (RF1 release) using the loader package
 and then use the db package to access it using the API defined in the root package. 
 
 Note that the API is a "close to the metal" version - not very object orientated - something quick and dirty.  It does not have any 
