@@ -44,7 +44,7 @@ public class TestSQLiteSnomed extends TestCase {
 		Set<Long> concepts = impl.getConceptIds();
 		System.out.println(concepts.size() + " Concepts");
 		assertEquals(true, concepts.size()>400000);
-		concepts = impl.getConceptIds(0);
+		concepts = impl.getConceptIds(Concept.Status.CURRENT);
 		System.out.println(concepts.size() + " live Concepts");
 		assertEquals(true, concepts.size()>300000);
 		concepts = impl.getConceptIds("injection");
@@ -62,10 +62,10 @@ public class TestSQLiteSnomed extends TestCase {
 		descriptions = impl.getDescriptionIds("injection");
 		System.out.println(descriptions.size() + " injection Descriptions");
 		assertEquals(true, descriptions.size()>15000);
-		descriptions = impl.getDescriptionIdsByStatus(0);
+		descriptions = impl.getDescriptionIdsByStatus(Description.Status.CURRENT);
 		System.out.println(descriptions.size() + " live Descriptions");
 		assertEquals(true, descriptions.size()>800000);
-		descriptions = impl.getDescriptionIdsByType(2);
+		descriptions = impl.getDescriptionIdsByType(Description.Type.SYNONYM);
 		System.out.println(descriptions.size() + " synonyms");
 		assertEquals(true, descriptions.size()>200000);
 	}
@@ -89,7 +89,7 @@ public class TestSQLiteSnomed extends TestCase {
 	public void testConcept() {
 		Concept concept = impl.getConcept(100000000);
 		assertEquals(100000000,concept.getId());
-		assertEquals(10, concept.getStatus());
+		assertEquals(Concept.Status.MOVED_ELSEWHERE, concept.getStatus());
 		assertEquals("BITTER-3 (product)", concept.getFullySpecifiedName());
 		assertEquals("XU000",concept.getCtv3Id());
 		assertEquals("C-D1619", concept.getSnomedId());
@@ -102,19 +102,19 @@ public class TestSQLiteSnomed extends TestCase {
 		assertEquals(280844000, relationship.getSourceConceptId());
 		assertEquals(116680003, relationship.getTypeId());
 		assertEquals(71737002, relationship.getTargetConceptId());
-		assertEquals(0,relationship.getCharacteristic());
-		assertEquals(0,relationship.getRefinability());
+		assertEquals(Relationship.Characteristic.DEFINING,relationship.getCharacteristic());
+		assertEquals(Relationship.Refinability.NOT_REFINABLE,relationship.getRefinability());
 		assertEquals(0,relationship.getGroup());
 	}
 	
 	public void testDescription() {
 		Description description = impl.getDescription(1473011013);
 		assertEquals(1473011013, description.getId());
-		assertEquals(8, description.getStatus());
+		assertEquals(Description.Status.CONCEPT_NON_CURRENT, description.getStatus());
 		assertEquals(100000000, description.getConceptId());
 		assertEquals("BITTER-3 (product)",description.getTerm());
 		assertEquals(true,description.isInitialCapitalStatus());
-		assertEquals(3,description.getType());
+		assertEquals(Description.Type.FULLY_SPECIFIED_NAME,description.getType());
 		assertEquals("en", description.getLanguageCode());
 	}
 }

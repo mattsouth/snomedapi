@@ -84,8 +84,8 @@ public abstract class DBSnomed implements Snomed {
 	}
 
 	@Override
-	public Set<Long> getConceptIds(int statusId) {
-		return idsQuery("select CONCEPTID from Concept where CONCEPTSTATUS=" + statusId);
+	public Set<Long> getConceptIds(Concept.Status status) {
+		return idsQuery("select CONCEPTID from Concept where CONCEPTSTATUS=" + status.codeValue);
 	}
 
 	@Override
@@ -135,13 +135,13 @@ public abstract class DBSnomed implements Snomed {
 	}
 
 	@Override
-	public Set<Long> getDescriptionIdsByStatus(int status) {
-		return longIdsQuery("select DESCRIPTIONID from Description where DESCRIPTIONSTATUS=" + status);
+	public Set<Long> getDescriptionIdsByStatus(Description.Status status) {
+		return longIdsQuery("select DESCRIPTIONID from Description where DESCRIPTIONSTATUS=" + status.codeValue);
 	}
 
 	@Override
-	public Set<Long> getDescriptionIdsByType(int type) {
-		return longIdsQuery("select DESCRIPTIONID from Description where DESCRIPTIONTYPE=" + type);
+	public Set<Long> getDescriptionIdsByType(Description.Type type) {
+		return longIdsQuery("select DESCRIPTIONID from Description where DESCRIPTIONTYPE=" + type.codeValue);
 	}
 
 	// Relationships

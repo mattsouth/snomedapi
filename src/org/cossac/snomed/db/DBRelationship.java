@@ -28,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.cossac.snomed.Description;
 import org.cossac.snomed.Relationship;
 
 
@@ -104,16 +105,16 @@ public class DBRelationship implements Relationship {
 	 * @see org.cossac.snomed.Relationship#getChatacteristic()
 	 */
 	@Override
-	public int getCharacteristic() {
-		return characteristic;
+	public Characteristic getCharacteristic() {
+		return Characteristic.enumFromValue(characteristic);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.cossac.snomed.Relationship#getRefinability()
 	 */
 	@Override
-	public int getRefinability() {
-		return refinability;
+	public Refinability getRefinability() {
+		return Refinability.enumFromValue(refinability);
 	}
 
 	/* (non-Javadoc)

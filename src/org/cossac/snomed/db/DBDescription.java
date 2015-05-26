@@ -78,8 +78,8 @@ public class DBDescription implements Description {
 	 * @see org.cossac.snomed.Description#getStatus()
 	 */
 	@Override
-	public int getStatus() {
-		return status;
+	public Status getStatus() {
+		return Status.enumFromValue(status);
 	}
 	/* (non-Javadoc)
 	 * @see org.cossac.snomed.Description#getConceptId()
@@ -106,8 +106,8 @@ public class DBDescription implements Description {
 	 * @see org.cossac.snomed.Description#getType()
 	 */
 	@Override
-	public int getType() {
-		return type;
+	public Description.Type getType() {
+		return Type.enumFromValue(type);
 	}
 	/* (non-Javadoc)
 	 * @see org.cossac.snomed.Description#getLanguageCode()

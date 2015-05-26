@@ -90,8 +90,8 @@ public class DBConcept implements Concept {
 	 * @see org.cossac.snomed.Concept#getStatus()
 	 */
 	@Override
-	public int getStatus() {
-		return status;
+	public Status getStatus() {
+		return Status.enumFromValue(status);
 	}
 
 	/* (non-Javadoc)
@@ -137,7 +137,7 @@ public class DBConcept implements Concept {
 		return descriptions;
 	}
 	
-	private void loadDescriptions() {
+	private void loadDescriptions()  {
 		descriptions = new HashSet<Description>();
 		ResultSet rs;
 		try {

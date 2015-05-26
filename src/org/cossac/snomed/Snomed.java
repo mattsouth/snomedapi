@@ -22,88 +22,88 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 import java.util.Set;
 
 /**
- * Provides accessors for SNOMED clinical terms (SNOMED_CT).
- * 
- * @author matt
+ * Main API accessor for SNOMED clinical terms (SNOMED_CT) in which {@link Concept}s have multiple {@link Description}s and are linked by different {@link Relationship}s.
+ * <p/>
+ * This class provides accessors to collections of object IDs or to individual objects via their ID.
  *
+ * @author matt
  */
 public interface Snomed {
-	
-	// Concepts
-	
-	public abstract Set<Long> getConceptIds();
-	
-	public abstract Concept getConcept(long conceptId);
-	
-	public abstract Set<Long> getConceptIds(int statusId); // needs getStatusIds?
-	
-	public abstract Set<Long> getConceptIds(String match);
-	
-	public abstract Set<Long> getConceptIds(boolean isPrimitive);
-	
-	// Descriptions
-	
-	/**
-	 * @return *all* descriptionIds... Gulp.
-	 */
-	public abstract Set<Long> getDescriptionIds();
-	
-	/**
-	 * @param id 
-	 * @return description from id
-	 */
-	public abstract Description getDescription(long id);
-	
-	/**
-	 * Search for matching description terms
-	 * @param match partial match for description term
-	 * @return matching descriptions
-	 */
-	public abstract Set<Long> getDescriptionIds(String match);
-	
-	/**
-	 * 
-	 * @param status
-	 * @return
-	 */
-	public abstract Set<Long> getDescriptionIdsByStatus(int status);
-	
-	/**
-	 * 
-	 * @param type
-	 * @return
-	 */
-	public abstract Set<Long> getDescriptionIdsByType(int type);
-	
-	// Relationships
-	
-	/**
-	 * @return *All* RelationshipIds...  Gulp.
-	 */
-	public abstract Set<Long> getRelationshipIds();
-	
-	/**
-	 * @return relationship from id
-	 */
-	public abstract Relationship getRelationship(long id);
 
-	/**
-	 * @return All conceptIds that are relationship typeIds.
-	 */
-	public abstract Set<Long> getRelationshipTypeIds();
+    // Concepts
 
-	/**
-	 * @return All RelationshipIds of a particular type.
-	 */
-	public abstract Set<Long> getRelationshipIds(long typeId);
+    /**
+     * @return *all* (300K+) concept IDs
+     */
+    Set<Long> getConceptIds();
 
-	/**
-	 * @param conceptID identifies target concept
-	 * @return all Relationships associated with a particular concept.
-	 */
-	public Set<Relationship> getRelationships(long conceptID);
-	
+    Concept getConcept(long conceptId);
+
+    /**
+     * Get current/outdated etc concept IDs
+     */
+    Set<Long> getConceptIds(Concept.Status statusId); // needs getStatusIds?
+
+    /**
+     * Get concept IDs using partial string match to fully specified name.
+     */
+    Set<Long> getConceptIds(String match);
+
+    /**
+     * Get primitive / derived concept ids.
+     */
+    Set<Long> getConceptIds(boolean isPrimitive);
+
+    // Descriptions
+
+    /**
+     * @return *all* (1.2M+) description IDs ...
+     */
+    Set<Long> getDescriptionIds();
+
+    Description getDescription(long id);
+
+    /**
+     * Get description IDs using partial string match to description term
+     */
+    Set<Long> getDescriptionIds(String match);
+
+    /**
+     * Get current/outdated etc description IDs
+     */
+    Set<Long> getDescriptionIdsByStatus(Description.Status status);
+
+    /**
+     * Get Preferred Name or Synonym description IDs
+     */
+    Set<Long> getDescriptionIdsByType(Description.Type type);
+
+    // Relationships
+
+    /**
+     * @return *All* (1.3M+) Relationship IDs
+     */
+    Set<Long> getRelationshipIds();
+
+    Relationship getRelationship(long id);
+
+    /**
+     * @return All Concept IDs that are relationship types.
+     */
+    Set<Long> getRelationshipTypeIds();
+
+    /**
+     * @return All Relationship IDs of a particular type.
+     */
+    Set<Long> getRelationshipIds(long typeId);
+
+    /**
+     * @return all Relationship IDs associated with a particular concept.
+     */
+    Set<Relationship> getRelationships(long conceptID);
+
 }

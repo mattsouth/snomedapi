@@ -2,8 +2,8 @@ Provides a simple Java API for consuming the SNOMED CT terminology.  You can cre
 provided by NHS Connecting for Health, available from https://www.uktcregistration.nss.cfh.nhs.uk/ (RFI release) using the loader package
 and then use the db package to access it using the API defined in the root package. 
 
-Note that the API is a "close to the metal" version - not very object orientated - something quick and dirty.  It does not have any 
-facility for creating pre- or post-processed queries for instance.
+Note that the API is a "close to the metal" version - not very object orientated - mostly just a wrapper for the published csv files.  
+It does not have any facility for creating pre- or post-processed queries for instance.
 
 ## Creating a SQLite database from a TRUD download.
 
@@ -49,7 +49,6 @@ Neither of these options have been implemented for simplicity sake.
  - An alternative source, e.g. bioportal
  - A report that summarises the contents of the terminology
  - Test coverage for the Sqlite implementation of the API
- - Enums for Status, Charateristic, Refinability
 
 ## Related projects
 

@@ -24,67 +24,93 @@ SOFTWARE.
 */
 
 /**
- * Relationships link concepts in SNOMED CT. There are four types of relationships that can be assigned to
- * concepts in SNOMED CT:
- * • Defining
- * • Qualifying
- * • Historical
- * • Additional
+ * Relationships link concepts in SNOMED CT with triples of the form:
+ * Source Concept is related to Target Concept by Type Concept.
+ *
+ * Relationship characteristic, refinability and group can be further used to understand the
+ * nature of a relationship and whether the source concept is primitive or defined.
  **/
 public interface Relationship {
 	
 	/**
 	 * A unique ID for every relationship.
-	 * 
-	 * @return
 	 */
-	public abstract long getId();
+	long getId();
 
 	/**
-	 * Source concept id of the relationship.
-	 * 
-	 * @return
+	 * Source Concept ID of the relationship.
 	 */
-	public abstract long getSourceConceptId();
+	long getSourceConceptId();
 
 	/**
-	 * The concept id that types the relationship
-	 * 
-	 * @return
+	 * The Concept ID that types the relationship
 	 */
-	public abstract long getTypeId();
+	long getTypeId();
 
 	/**
-	 * target concept id of the relationship.
-	 * 
-	 * @return
+	 * Target Concept ID of the relationship.
 	 */
-	public abstract long getTargetConceptId();
+	long getTargetConceptId();
 
-	/**
-	 * An indication of whether a Relationship specifies a defining characteristic of the source Concept or 
-	 * a possible qualification of that Concept.
-	 * 
-	 * 0 - Defining
-	 * 1 - Qualifier
-	 * 2 - Historical
-	 * 3 - Additional
-	 * 
-	 * @return
-	 */
-	public abstract int getCharacteristic();
+    /**
+     * An indication of whether a Relationship specifies a defining characteristic of the source Concept or
+     * a possible qualification of that Concept.
+     */
+    enum Characteristic {
+		DEFINING(0), QUALIFIER(1), HISTORICAL(2), ADDITIONAL(4);
 
-	/**
-	 * An indication of whether it is possible to refine the target concept when this Relationship is used 
-	 * as a template for clinical data entry.
-	 * 
-	 * 0 - Not refinable
-	 * 1 - Optional
-	 * 2 - Mandatory
-	 * 
-	 * @return
-	 */
-	public abstract int getRefinability();
+		final int codeValue;
+
+		Characteristic(int codeValue) {
+			this.codeValue = codeValue;
+		}
+
+		public static Characteristic enumFromValue(int code) {
+			switch (code) {
+				case 0:
+					return DEFINING;
+				case 1:
+					return QUALIFIER;
+				case 2:
+					return HISTORICAL;
+				case 4:
+					return ADDITIONAL;
+				default:
+					return null;
+			}
+		}
+	}
+
+	Characteristic getCharacteristic();
+
+    /**
+     * An indication of whether it is possible to refine the target concept when this Relationship is used
+     * as a template for clinical data entry.
+     */
+	enum Refinability {
+		NOT_REFINABLE(0), OPTIONAL(1), MANDATORY(2);
+
+		final int codeValue;
+
+		Refinability(int codeValue) {
+			this.codeValue = codeValue;
+		}
+
+		public static Refinability enumFromValue(int code) {
+			switch(code) {
+				case 0:
+					return NOT_REFINABLE;
+				case 1:
+					return OPTIONAL;
+				case 2:
+					return MANDATORY;
+				default:
+					return null;
+			}
+		}
+	}
+
+	Refinability getRefinability();
 
 	/**
 	 * An integer value that expresses an association between two or more Relationships.
@@ -93,8 +119,6 @@ public interface Relationship {
 	 * to be associated with any other Relationships. All Relationships that share the same ConceptId1 and the
 	 * same non-zero Relationship group value are associated with one another. Any Relationships that share the
 	 * same ConceptId1 but have different Relationship group values are not associated with one another. 
-	 * 
-	 * @return
 	 */
-	public abstract int getGroup();
+	int getGroup();
 }

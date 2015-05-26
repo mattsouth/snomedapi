@@ -31,91 +31,112 @@ import java.util.Set;
  * Name (FSN). The concepts are formally defined in terms of their relationships with other concepts. These
  * logical definitions give explicit meaning which a computer can process and query on. Every concept also has
  * a set of terms that name the concept in a human-readable way.
- * 
+ *
  * @author matt
  */
 public interface Concept {
 
-	/** 
-	 * A permanent unique numeric identifier which does not convey any information about the meaning 
-	 * or nature of the Concept.
-	 * @return
-	 */
-	public abstract long getId();
+    /**
+     * A permanent unique numeric identifier which does not convey any information about the meaning
+     * or nature of the Concept.
+     */
+    long getId();
 
-	/**
-	 * This field flags concepts that have been retired so that data encoded with these concepts can be 
-	 * properly accessed and retrieved long after it has been coded.  A value of 0 (Current) indicates that
-	 * the concept is in active use.
-	 * 
-	 * 0 - Current
-	 * 1 - Retired
-	 * 2 - Duplicate
-	 * 3 - Outdated
-	 * 4 - Ambiguous
-	 * 5 - Erroneous
-	 * 6 - Limited
-	 * 10 - Moved Elsewhere
-	 * 11 - Pending Move
-	 * 
-	 * @return
-	 */
-	public abstract int getStatus();
+    enum Status {
+        CURRENT(0), RETIRED(1), DUPLICATE(2), OUTDATED(3), ERRONEOUS(5), LIMITED(6), MOVED_ELSEWHERE(10), PENDING_MOVE(11);
 
-	/**
-	 * A human readable name for the concept.  
-	 * Note that this field is replicated in Description.
-	 * 
-	 * @return
-	 */
-	public abstract String getFullySpecifiedName();
+        public final int codeValue;
 
-	/**
-	 * Original Clinical Terms v3 identifier.
-	 * 
-	 * @return
-	 */
-	public abstract String getCtv3Id();
+        Status(int codeValue) {
+            this.codeValue = codeValue;
+        }
 
-	/**
-	 * Original SNOMED RT identifier.
-	 * 
-	 * @return
-	 */
-	public abstract String getSnomedId();
+        public static Status enumFromValue(int codeValue) {
+            switch (codeValue) {
+                case 0:
+                    return CURRENT;
+                case 1:
+                    return RETIRED;
+                case 2:
+                    return DUPLICATE;
+                case 3:
+                    return OUTDATED;
+                case 5:
+                    return ERRONEOUS;
+                case 6:
+                    return LIMITED;
+                case 10:
+                    return MOVED_ELSEWHERE;
+                case 11:
+                    return PENDING_MOVE;
+                default:
+                    return null;
+            }
+        }
+    }
 
-	/**
-	 * Indicates whether or not a concept has been flagged as primitive during the modelling
-	 * process. This flag can be useful in advanced applications that take advantage of the description logic
-	 * features of SNOMED CT.
-	 * 
-	 * @return true if concept is primitive
-	 */
-	public abstract boolean isPrimitive();
-	
-	/**
-	 * A concept maybe associated with more than one description.
-	 * @return descriptions associated with this concept
-	 */
-	public abstract Set<Description> getDescriptions();
-	
-	/**
-	 * Return the relationship types that link to this concept.
-	 * @param direction
-	 * @return
-	 */
-	public abstract Set<Long> getRelationshipTypeIds(Direction direction);
+    /**
+     * 0 - Current
+     * 1 - Retired
+     * 2 - Duplicate
+     * 3 - Outdated
+     * 4 - Ambiguous
+     * 5 - Erroneous
+     * 6 - Limited
+     * 10 - Moved Elsewhere
+     * 11 - Pending Move
+     */
+    Status getStatus();
 
-	public abstract Set<Relationship> getRelationships(long typeId, Direction direction);
-	
-	/**
-	 * A relationship defines a directed edge in a graph of concepts.  When one is filtering the list of relationships 
-	 * by concept, then it is useful to define a filter based on inwards or outwards relations.
-	 * 
-	 * @author matt
-	 */
-	public enum Direction {
-		INWARDS, OUTWARDS;
-	}
+    /**
+     * A human readable name for the concept.
+     * Note that this field is replicated in Description.
+     */
+    String getFullySpecifiedName();
+
+    /**
+     * Original Clinical Terms v3 identifier.
+     */
+    String getCtv3Id();
+
+    /**
+     * Original SNOMED RT identifier.
+     */
+    String getSnomedId();
+
+    /**
+     * Indicates whether or not a concept has been flagged as primitive during the modelling
+     * process. This flag can be useful in advanced applications that take advantage of the description logic
+     * features of SNOMED CT.
+     *
+     * @return true if concept is primitive
+     */
+    boolean isPrimitive();
+
+    /**
+     * A concept maybe associated with more than one description.
+     *
+     * @return descriptions associated with this concept
+     */
+    Set<Description> getDescriptions();
+
+    /**
+     * Return the relationship types that link to this concept.
+     *
+     * @param direction
+     */
+    Set<Long> getRelationshipTypeIds(Direction direction);
+
+    Set<Relationship> getRelationships(long typeId, Direction direction);
+
+    /**
+     * A relationship defines a directed edge in a graph of concepts.  When one is filtering the list of relationships
+     * by concept, then it is useful to define a filter based on inwards or outwards relations.
+     *
+     * @author matt
+     */
+    enum Direction {
+        INWARDS, OUTWARDS;
+    }
 
 }
