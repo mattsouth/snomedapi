@@ -26,7 +26,7 @@ SOFTWARE.
 /**
  * Descriptions are the terms or names assigned to a SNOMED CT {@link Concept}. “Term” in this context
  * means a phrase used to name a concept. Every Concept should have a Fully Qualified Name description,
- * a preferred name description and may have multiple synonym descriptions.
+ * a Preferred Name description and may have multiple Synonym descriptions.
  *
  * @author matt
  */

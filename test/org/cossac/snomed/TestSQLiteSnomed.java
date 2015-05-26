@@ -94,6 +94,10 @@ public class TestSQLiteSnomed extends TestCase {
 		assertEquals("XU000",concept.getCtv3Id());
 		assertEquals("C-D1619", concept.getSnomedId());
 		assertEquals(true, concept.isPrimitive());
+		assertEquals(3, concept.getDescriptions().size());
+        Set<Long> rels = concept.getRelationshipTypeIds(Concept.Direction.OUTWARDS);
+        assertEquals(2, rels.size());
+        assertEquals(1, concept.getRelationships(rels.toArray(new Long[]{})[0],Concept.Direction.OUTWARDS).size());
 	}
 	
 	public void testRelationship() {

@@ -49,7 +49,8 @@ Neither of these options have been implemented for simplicity sake.
  - An alternative source, e.g. bioportal
  - A report that summarises the contents of the terminology
  - Test coverage for the Sqlite implementation of the API
-
+ - Adapt API to understand Pre and Post Coordination
+ 
 ## Related projects
 
  - bioportal (http://bioportal.bioontology.org/) provides a very good online web interface that covers many terminologies including snomed ct.

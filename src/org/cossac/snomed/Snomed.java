@@ -37,7 +37,7 @@ public interface Snomed {
     // Concepts
 
     /**
-     * @return *all* (300K+) concept IDs
+     * Get *all* (400K+) concept IDs
      */
     Set<Long> getConceptIds();
 
@@ -46,7 +46,7 @@ public interface Snomed {
     /**
      * Get current/outdated etc concept IDs
      */
-    Set<Long> getConceptIds(Concept.Status statusId); // needs getStatusIds?
+    Set<Long> getConceptIds(Concept.Status statusId);
 
     /**
      * Get concept IDs using partial string match to fully specified name.
@@ -61,7 +61,7 @@ public interface Snomed {
     // Descriptions
 
     /**
-     * @return *all* (1.2M+) description IDs ...
+     * Get *all* (1.2M+) description IDs ...
      */
     Set<Long> getDescriptionIds();
 
@@ -85,24 +85,24 @@ public interface Snomed {
     // Relationships
 
     /**
-     * @return *All* (1.3M+) Relationship IDs
+     * Get *All* (1.3M+) Relationship IDs
      */
     Set<Long> getRelationshipIds();
 
     Relationship getRelationship(long id);
 
     /**
-     * @return All Concept IDs that are relationship types.
+     * Get all Concept IDs that are relationship types.
      */
     Set<Long> getRelationshipTypeIds();
 
     /**
-     * @return All Relationship IDs of a particular type.
+     * Get all Relationship IDs of a particular type.
      */
     Set<Long> getRelationshipIds(long typeId);
 
     /**
-     * @return all Relationship IDs associated with a particular concept.
+     * Get all Relationships associated with a particular concept.
      */
     Set<Relationship> getRelationships(long conceptID);
 

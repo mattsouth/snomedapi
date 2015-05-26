@@ -26,11 +26,11 @@ SOFTWARE.
 import java.util.Set;
 
 /**
- * A “concept” is a clinical meaning identified by a unique numeric identifier
- * (ConceptId) that never changes. Concepts are represented by a unique human-readable Fully Specified
- * Name (FSN). The concepts are formally defined in terms of their relationships with other concepts. These
- * logical definitions give explicit meaning which a computer can process and query on. Every concept also has
- * a set of terms that name the concept in a human-readable way.
+ * A Concept is a clinical meaning identified by a unique numeric identifier (Concept id) that never changes.
+ * Concepts are represented by a unique human-readable Fully Specified Name (FSN).
+ * The concepts are formally defined in terms of their {@link Relationship}s with other concepts. These
+ * logical definitions give explicit meaning which a computer can process and query on. Every Concept also has
+ * a set of terms ({@link Description}s) that name the concept in a human-readable way.
  *
  * @author matt
  */
@@ -42,6 +42,10 @@ public interface Concept {
      */
     long getId();
 
+
+    /**
+     * The status of a Concept indicates whether it is in active use and, if not indicates the reason for withdrawal from current use.
+     */
     enum Status {
         CURRENT(0), RETIRED(1), DUPLICATE(2), OUTDATED(3), ERRONEOUS(5), LIMITED(6), MOVED_ELSEWHERE(10), PENDING_MOVE(11);
 
@@ -75,17 +79,6 @@ public interface Concept {
         }
     }
 
-    /**
-     * 0 - Current
-     * 1 - Retired
-     * 2 - Duplicate
-     * 3 - Outdated
-     * 4 - Ambiguous
-     * 5 - Erroneous
-     * 6 - Limited
-     * 10 - Moved Elsewhere
-     * 11 - Pending Move
-     */
     Status getStatus();
 
     /**
@@ -105,28 +98,25 @@ public interface Concept {
     String getSnomedId();
 
     /**
-     * Indicates whether or not a concept has been flagged as primitive during the modelling
+     * Indicates whether or not a concept has been flagged as primitive or derived during the modelling
      * process. This flag can be useful in advanced applications that take advantage of the description logic
      * features of SNOMED CT.
-     *
-     * @return true if concept is primitive
      */
     boolean isPrimitive();
 
     /**
-     * A concept maybe associated with more than one description.
-     *
      * @return descriptions associated with this concept
      */
     Set<Description> getDescriptions();
 
     /**
-     * Return the relationship types that link to this concept.
-     *
-     * @param direction
+     * Return all relationship IDs that link to this concept, filtered by direction.
      */
     Set<Long> getRelationshipTypeIds(Direction direction);
 
+    /**
+     * Return all Relationships that link to this concept, filtered by direction and relationship type concept id.
+     */
     Set<Relationship> getRelationships(long typeId, Direction direction);
 
     /**
@@ -136,7 +126,7 @@ public interface Concept {
      * @author matt
      */
     enum Direction {
-        INWARDS, OUTWARDS;
+        INWARDS, OUTWARDS
     }
 
 }

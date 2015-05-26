@@ -53,8 +53,8 @@ public class DBConcept implements Concept {
 	private String ctv3Id;
 	private String snomedId;
 	private boolean primitive;
-	private Map<Long, Set<Relationship>> inwards = new HashMap<Long, Set<Relationship>>();
-	private Map<Long, Set<Relationship>> outwards = new HashMap<Long, Set<Relationship>>();
+	private Map<Long, Set<Relationship>> inwards;
+	private Map<Long, Set<Relationship>> outwards;
 
 	private Set<Description> descriptions = null;
 	
@@ -191,13 +191,13 @@ public class DBConcept implements Concept {
 
 	public Set<Relationship> getRelationships(long typeId, Direction direction) {
 		if (direction==Direction.INWARDS) {
-			if (!inwards.containsKey(typeId)) {
-				loadPartialInwards(typeId);
+			if (inwards==null) {
+				loadAllInwards();
 			}
 			return inwards.get(typeId);
 		} else {
-			if (!outwards.containsKey(typeId)) {
-				loadPartialOutwards(typeId);
+			if (outwards==null) {
+				loadAllOutwards();
 			}
 			return outwards.get(typeId);
 		}
