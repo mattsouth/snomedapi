@@ -1,7 +1,4 @@
 /**
- * Created by matt on 26/05/15.
+ * Interfaces that define the API.
  */
 package org.cossac.snomed;
-/**
- * Interfaces to be used by all implementations.
- */
